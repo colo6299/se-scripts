@@ -1,0 +1,23 @@
+
+//Now, you just tell me this isnt the most light-weight looking missile script you've ever seen. It's the most lightweight one I've seen, anyway.
+//Well, I've really just seen this one, so not many points of reference to go off of... You know what? I spent three hours on a method for reading
+//angle, and ended up not even using it... How the hell are suposed to anyway? Like, I made some stupid workaround thing using one of the like
+//two things I know how to do. I think I might just spontaneously combust if I need to mess with it again... I need an adult :c
+
+
+public void Main(string argument) { 
+ 
+IMyThrust thrusty = GridTerminalSystem.GetBlockWithName("Thrusty") as IMyThrust; 
+IMyGyro gerps = GridTerminalSystem.GetBlockWithName("GuyRow") as IMyGyro; 
+IMyTimerBlock dewblock = GridTerminalSystem.GetBlockWithName("Timer.Do") as IMyTimerBlock;    
+ 
+Vector3D target = new Vector3D (-4327, 10670, -295); //put the coordinates there if you want it to work :)
+Vector3I target_relative = Me.CubeGrid.WorldToGridInteger(target); 
+ 
+gerps.Pitch = 0.5f * Math.Sign(target_relative.Z) / 10 * Convert.ToSingle(Math.Sqrt(Math.Abs(target_relative.Z)));  
+gerps.Yaw = -0.5f * Math.Sign(target_relative.X) / 10 * Convert.ToSingle(Math.Sqrt(Math.Abs(target_relative.X)));  
+ 
+thrusty.SetValueFloat("Override", thrusty.MaxEffectiveThrust);  
+dewblock.Trigger();
+
+} 
